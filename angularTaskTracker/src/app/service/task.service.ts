@@ -13,11 +13,12 @@ const httpOptions ={
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl = 'http://localhost:5000/tasks'
+  private apiUrl = 'http://localhost:8080/tasks'
 
   constructor(private http:HttpClient) { }
 
   getTasks():Observable<Task[]>{
+    console.log("Get request")
     return this.http.get<Task[]>(this.apiUrl)
   }
 
@@ -28,10 +29,12 @@ export class TaskService {
 
   updateTaskReminder(task : Task): Observable<Task[]>{
     const url = `${this.apiUrl}/${task.id}`
+    console.log(url)
     return this.http.put<Task[]>(url, task, httpOptions)
   }
 
   addTask(task:Task): Observable<Task>{
+    console.log(task)
     return this.http.post<Task>(this.apiUrl, task, httpOptions);
   }
 }
